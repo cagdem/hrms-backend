@@ -2,6 +2,7 @@ package kodlamaio.hrms.business.concretes;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
@@ -22,6 +23,15 @@ public class EmployerManager implements EmployerService {
 	private EmailVerificationService emailVerificationService;
 	private AdminVerificationService adminVerificationService;
 	
+	@Autowired
+	public EmployerManager(EmployerDao employerDao, EmailVerificationService emailVerificationService,
+			AdminVerificationService adminVerificationService) {
+		super();
+		this.employerDao = employerDao;
+		this.emailVerificationService = emailVerificationService;
+		this.adminVerificationService = adminVerificationService;
+	}
+
 	@Override
 	public Result add(Employer employer) {
 		Result result = isEmployerVerified(employer);
