@@ -31,6 +31,9 @@ public class EmployeeManager implements EmployeeService {
 	@Override
 	public Result add(Employee employee) {
 		Result result = isEmployeeVerified(employee);
+		if (result.isSuccess()) {
+			this.employeeDao.save(employee);
+		}
 		return result;
 
 	}
