@@ -1,8 +1,12 @@
 package kodlamaio.hrms.business.concretes;
 
+import java.util.List;
+
 import kodlamaio.hrms.business.abstracts.EmployerService;
+import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
+import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.core.utilities.verifications.abstracts.AdminVerificationService;
 import kodlamaio.hrms.core.utilities.verifications.abstracts.EmailVerificationService;
@@ -24,6 +28,11 @@ public class EmployerManager implements EmployerService {
 		return result;
 	}
 
+	@Override
+	public DataResult<List<Employer>> getAll() {
+		List<Employer> result = this.employerDao.findAll();
+		return new SuccessDataResult<List<Employer>>(result,"Is verenler listelendi.");
+	}	
 	
 	private Result isEmployerVerified(Employer employer) {
 		if (!this.adminVerificationService.isVerifiedByAdmin(employer)) {
@@ -37,4 +46,7 @@ public class EmployerManager implements EmployerService {
 		}
 		return new SuccessResult("Is veren eklendi.");
 	}
+
+
+
 }
