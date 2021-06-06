@@ -30,8 +30,8 @@ public class JobAd {
 	//@Column(name = "position_name")
 	//private String positionName;
 	
-	@Column(name = "company_id")
-	private String companyId;
+	//@Column(name = "company_id")
+	//private String companyId;
 	
 	@Column(name = "description")
 	private String description;
@@ -60,6 +60,10 @@ public class JobAd {
 	@ManyToOne()
 	@JoinColumn(name="position_name")
 	private JobPosition jobPosition;
+	
+	@ManyToOne()
+	@JoinColumn(name="company_id",referencedColumnName = "id")
+	private Employer employer;
 	
 	
 }

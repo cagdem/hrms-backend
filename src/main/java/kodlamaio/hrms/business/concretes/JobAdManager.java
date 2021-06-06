@@ -38,7 +38,7 @@ public class JobAdManager implements JobAdService {
 
 	@Override
 	public DataResult<List<JobAd>> getByCompanyId(int companyId) {
-		return new SuccessDataResult<List<JobAd>>(this.jobAdDao.getByCompanyId(companyId));
+		return new SuccessDataResult<List<JobAd>>(this.jobAdDao.getByEmployer_Id(companyId));
 	}
 
 	@Override
