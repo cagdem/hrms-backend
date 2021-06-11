@@ -44,4 +44,6 @@ public class Employee extends User {
 	@NotBlank
 	@NotNull
 	private Date birthDate;
+	
+
 }
