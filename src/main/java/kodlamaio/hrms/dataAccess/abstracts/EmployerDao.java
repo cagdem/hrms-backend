@@ -8,6 +8,6 @@ import kodlamaio.hrms.entities.concretes.Employer;
 
 public interface EmployerDao extends JpaRepository<Employer, Integer> {
 
-	List<Employer> findByEmail(String email);
+	List<Employer> findByUser_Email(String email);
 
 }

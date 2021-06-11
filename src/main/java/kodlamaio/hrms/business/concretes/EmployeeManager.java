@@ -54,13 +54,13 @@ public class EmployeeManager implements EmployeeService {
 		if (!mernisService.checkIfEmployeeRealPerson(employee)) {
 			return new ErrorResult("Mernis dogrulamasi basarisiz.");
 		} 
-		if (!this.employeeDao.findByEmail(employee.getEmail()).isEmpty()) {
+		if (!this.employeeDao.findByUser_Email(employee.getUser().getEmail()).isEmpty()) {
 			return new ErrorResult("Bu mail daha once kullanilmis.");
 		}
 		if (!this.employeeDao.findByNatId(employee.getNatId()).isEmpty()) {
 			return new ErrorResult("Bu TcNo daha once kullanilmis.");
 		}
-		if (!this.emailVerificationService.isEmailVerified(employee.getEmail())) {
+		if (!this.emailVerificationService.isEmailVerified(employee.getUser().getEmail())) {
 			return new ErrorResult("Email onaylamasi yapilmamis.");
 		}
 		return new SuccessResult("Is arayan eklendi.");

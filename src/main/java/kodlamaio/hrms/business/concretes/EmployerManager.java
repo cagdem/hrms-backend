@@ -51,10 +51,10 @@ public class EmployerManager implements EmployerService {
 		if (!this.adminVerificationService.isVerifiedByAdmin(employer)) {
 			return new ErrorResult("HRMS personeli onayi verilmemis.");
 		} 
-		if (!this.employerDao.findByEmail(employer.getEmail()).isEmpty()) {
+		if (!this.employerDao.findByUser_Email(employer.getUser().getEmail()).isEmpty()) {
 			return new ErrorResult("Bu mail daha once kullanilmis.");
 		}
-		if (!this.emailVerificationService.isEmailVerified(employer.getEmail())) {
+		if (!this.emailVerificationService.isEmailVerified(employer.getUser().getEmail())) {
 			return new ErrorResult("Email onaylamasi yapilmamis.");
 		}
 		return new SuccessResult("Is veren eklendi.");

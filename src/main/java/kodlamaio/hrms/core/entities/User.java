@@ -6,12 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
+import kodlamaio.hrms.entities.concretes.Employee;
+import kodlamaio.hrms.entities.concretes.Employer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +27,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","employee"})
+
 public class User {
 
 	@Id
@@ -39,4 +47,13 @@ public class User {
 	@NotNull
 	private String password;
 	
+	@JsonIgnore
+	@OneToOne(mappedBy = "user")
+	@PrimaryKeyJoinColumn
+	private Employee employee;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "user")
+	@PrimaryKeyJoinColumn
+	private Employer employer;
 }
