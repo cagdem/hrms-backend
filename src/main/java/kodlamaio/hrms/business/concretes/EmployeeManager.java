@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployeeService;
+import kodlamaio.hrms.core.dataAccess.UserDao;
+import kodlamaio.hrms.core.entities.User;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
@@ -19,16 +21,18 @@ import kodlamaio.hrms.entities.concretes.Employee;
 @Service
 public class EmployeeManager implements EmployeeService {
 
+	private UserDao userDao;
 	private EmployeeDao employeeDao;
 	private MernisService mernisService;
 	private EmailVerificationService emailVerificationService;
 	
 	@Autowired
-	public EmployeeManager(EmployeeDao employeeDao, MernisService mernisService, EmailVerificationService emailVerificationService) {
+	public EmployeeManager(UserDao userDao, EmployeeDao employeeDao, MernisService mernisService, EmailVerificationService emailVerificationService) {
 		super();
 		this.employeeDao = employeeDao;
 		this.mernisService = mernisService;
 		this.emailVerificationService = emailVerificationService;
+		this.userDao = userDao;
 	}
 
 
@@ -36,6 +40,9 @@ public class EmployeeManager implements EmployeeService {
 	public Result add(Employee employee) {
 		Result result = isEmployeeVerified(employee);
 		if (result.isSuccess()) {
+			this.userDao.save(employee.getUser());
+			User user = this.userDao.findByEmail(employee.getUser().getEmail());
+			employee.setUser(user);
 			this.employeeDao.save(employee);
 		}
 		return result;

@@ -35,4 +35,5 @@ public class ResumeeController {
 	public Result add(@RequestBody Resumee resumee) {
 		return this.resumeeService.add(resumee);
 	}
+	
 }

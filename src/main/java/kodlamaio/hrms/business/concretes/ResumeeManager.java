@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.ResumeeService;
+import kodlamaio.hrms.core.entities.User;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
@@ -31,6 +32,7 @@ public class ResumeeManager implements ResumeeService{
 
 	@Override
 	public Result add(Resumee resumee) {
+
 		this.resumeeDao.save(resumee);
 		return new SuccessResult("Cv eklendi.");
 	}
